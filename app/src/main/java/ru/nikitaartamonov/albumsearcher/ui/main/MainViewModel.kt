@@ -13,6 +13,8 @@ class MainViewModel : ViewModel(), MainController.ViewModel {
     override val showDownloadErrorLiveData = _showDownloadErrorLiveData
     private val _hideKeyboardAndClearEditTextFocusLiveData = MutableLiveData<Event<Boolean>>()
     override val hideKeyboardAndClearEditTextFocusLiveData = _hideKeyboardAndClearEditTextFocusLiveData
+    private val _showEmptyResultLiveData = MutableLiveData<Event<Boolean>>()
+    override val showEmptyResultLiveData = _showEmptyResultLiveData
 
     override fun onSearchButtonPressed(textToSearch: String) {
         _hideKeyboardAndClearEditTextFocusLiveData.postValue(Event(true))
@@ -22,7 +24,12 @@ class MainViewModel : ViewModel(), MainController.ViewModel {
             if (it == null) {
                 _showDownloadErrorLiveData.postValue(Event(true))
             } else {
-                //todo
+                it?.let { albumsRepo ->
+                    if (albumsRepo.size == 0) _showEmptyResultLiveData.postValue(Event(true))
+                    else {
+                        //todo
+                    }
+                }
             }
         }
     }

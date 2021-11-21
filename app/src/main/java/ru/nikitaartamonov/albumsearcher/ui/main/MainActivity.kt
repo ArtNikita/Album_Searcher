@@ -1,6 +1,7 @@
 package ru.nikitaartamonov.albumsearcher.ui.main
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
@@ -8,6 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
+import ru.nikitaartamonov.albumsearcher.R
 import ru.nikitaartamonov.albumsearcher.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -42,14 +44,19 @@ class MainActivity : AppCompatActivity() {
                 binding.searchEditText.clearFocus()
             }
         }
+        viewModel.showEmptyResultLiveData.observe(this) { event ->
+            event.getContentIfNotHandled()?.let {
+                showEmptyResultSnackbar()
+            }
+        }
+    }
+
+    private fun showEmptyResultSnackbar() {
+        showSnackbar(R.string.empty_result_snackbar_text)
     }
 
     private fun showDownloadError() {
-        Snackbar.make(
-            binding.historyRecyclerView,
-            "Check your internet connection.",
-            Snackbar.LENGTH_SHORT
-        ).show()
+        showSnackbar(R.string.internet_connection_error_snackbar_text)
     }
 
     private fun hideStatusBar() {
@@ -63,5 +70,13 @@ class MainActivity : AppCompatActivity() {
     private fun hideKeyboard() {
         val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+    }
+
+    private fun Context.showSnackbar(stringId: Int){
+        Snackbar.make(
+            binding.historyRecyclerView,
+            getString(stringId),
+            Snackbar.LENGTH_SHORT
+        ).show()
     }
 }
