@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import ru.nikitaartamonov.albumsearcher.domain.AlbumsRepo
 import ru.nikitaartamonov.albumsearcher.domain.Event
 
-class MainController {
+class MainContract {
     interface ViewModel {
         val showDownloadErrorLiveData: LiveData<Event<Boolean>>
         val showEmptyResultLiveData: LiveData<Event<Boolean>>

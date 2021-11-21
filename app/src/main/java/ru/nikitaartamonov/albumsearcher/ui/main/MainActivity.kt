@@ -15,7 +15,7 @@ import ru.nikitaartamonov.albumsearcher.databinding.ActivityMainBinding
 import ru.nikitaartamonov.albumsearcher.ui.pages.albums_list.AlbumsListActivity
 
 class MainActivity : AppCompatActivity() {
-    private val viewModel: MainController.ViewModel by viewModels<MainViewModel>()
+    private val viewModel: MainContract.ViewModel by viewModels<MainViewModel>()
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

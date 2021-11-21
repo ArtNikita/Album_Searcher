@@ -6,7 +6,7 @@ import ru.nikitaartamonov.albumsearcher.domain.AlbumsRepo
 import ru.nikitaartamonov.albumsearcher.domain.Event
 import ru.nikitaartamonov.albumsearcher.impl.ServerAlbumsLoaderImpl
 
-class MainViewModel : ViewModel(), MainController.ViewModel {
+class MainViewModel : ViewModel(), MainContract.ViewModel {
 
     private val serverAlbumsLoader = ServerAlbumsLoaderImpl()
 
