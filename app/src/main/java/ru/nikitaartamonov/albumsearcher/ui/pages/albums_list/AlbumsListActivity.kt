@@ -1,10 +1,13 @@
 package ru.nikitaartamonov.albumsearcher.ui.pages.albums_list
 
+import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.snackbar.Snackbar
+import ru.nikitaartamonov.albumsearcher.R
 import ru.nikitaartamonov.albumsearcher.data.getApp
 import ru.nikitaartamonov.albumsearcher.data.hideStatusbar
 import ru.nikitaartamonov.albumsearcher.databinding.ActivityAlbumsListBinding
@@ -24,6 +27,7 @@ class AlbumsListActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initRecyclerView()
+        initViewModel()
     }
 
     private fun initRecyclerView() {
@@ -42,6 +46,22 @@ class AlbumsListActivity : AppCompatActivity() {
         }
         binding.albumsListRecyclerView.adapter = adapter
         adapter.setData(getApp().currentAlbumsSearchResult)
+    }
+
+    private fun initViewModel() {
+        viewModel.showDownloadSpecificAlbumErrorLiveData.observe(this) {
+            it.getContentIfNotHandled()?.let {
+                showSnackbar(R.string.internet_connection_error_snackbar_text)
+            }
+        }
+    }
+
+    fun Context.showSnackbar(stringId: Int) {
+        Snackbar.make(
+            binding.albumsListRecyclerView,
+            getString(stringId),
+            Snackbar.LENGTH_SHORT
+        ).show()
     }
 
     companion object {
