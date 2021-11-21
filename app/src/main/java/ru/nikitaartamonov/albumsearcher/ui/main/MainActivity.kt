@@ -49,6 +49,11 @@ class MainActivity : AppCompatActivity() {
                 showEmptyResultSnackbar()
             }
         }
+        viewModel.startAlbumsListActivityLiveData.observe(this) { event ->
+            event.getContentIfNotHandled()?.let { albumsRepo ->
+                //todo start activity
+            }
+        }
     }
 
     private fun showEmptyResultSnackbar() {

@@ -2,6 +2,7 @@ package ru.nikitaartamonov.albumsearcher.ui.main
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import ru.nikitaartamonov.albumsearcher.domain.AlbumsRepo
 import ru.nikitaartamonov.albumsearcher.domain.Event
 import ru.nikitaartamonov.albumsearcher.impl.ServerAlbumsLoaderImpl
 
@@ -12,9 +13,12 @@ class MainViewModel : ViewModel(), MainController.ViewModel {
     private val _showDownloadErrorLiveData = MutableLiveData<Event<Boolean>>()
     override val showDownloadErrorLiveData = _showDownloadErrorLiveData
     private val _hideKeyboardAndClearEditTextFocusLiveData = MutableLiveData<Event<Boolean>>()
-    override val hideKeyboardAndClearEditTextFocusLiveData = _hideKeyboardAndClearEditTextFocusLiveData
+    override val hideKeyboardAndClearEditTextFocusLiveData =
+        _hideKeyboardAndClearEditTextFocusLiveData
     private val _showEmptyResultLiveData = MutableLiveData<Event<Boolean>>()
     override val showEmptyResultLiveData = _showEmptyResultLiveData
+    private val _startAlbumsListActivityLiveData = MutableLiveData<Event<AlbumsRepo>>()
+    override val startAlbumsListActivityLiveData = _startAlbumsListActivityLiveData
 
     override fun onSearchButtonPressed(textToSearch: String) {
         _hideKeyboardAndClearEditTextFocusLiveData.postValue(Event(true))
@@ -27,7 +31,7 @@ class MainViewModel : ViewModel(), MainController.ViewModel {
                 it?.let { albumsRepo ->
                     if (albumsRepo.size == 0) _showEmptyResultLiveData.postValue(Event(true))
                     else {
-                        //todo
+                        _startAlbumsListActivityLiveData.postValue(Event(albumsRepo))
                     }
                 }
             }
