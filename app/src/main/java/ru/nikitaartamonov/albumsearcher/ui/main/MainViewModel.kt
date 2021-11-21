@@ -17,22 +17,22 @@ class MainViewModel : ViewModel(), MainController.ViewModel {
         _hideKeyboardAndClearEditTextFocusLiveData
     private val _showEmptyResultLiveData = MutableLiveData<Event<Boolean>>()
     override val showEmptyResultLiveData = _showEmptyResultLiveData
-    private val _startAlbumsListActivityLiveData = MutableLiveData<Event<AlbumsRepo>>()
-    override val startAlbumsListActivityLiveData = _startAlbumsListActivityLiveData
+    private val _setCurrentAlbumsSearchResultAndStartActivityLiveData =
+        MutableLiveData<Event<AlbumsRepo>>()
+    override val setCurrentAlbumsSearchResultAndStartActivityLiveData =
+        _setCurrentAlbumsSearchResultAndStartActivityLiveData
 
     override fun onSearchButtonPressed(textToSearch: String) {
         _hideKeyboardAndClearEditTextFocusLiveData.postValue(Event(true))
         val input = textToSearch.trim()
         if (input.isEmpty()) return
-        serverAlbumsLoader.loadAlbumsAsync(input) {
-            if (it == null) {
+        serverAlbumsLoader.loadAlbumsAsync(input) { albumsRepo ->
+            if (albumsRepo == null) {
                 _showDownloadErrorLiveData.postValue(Event(true))
             } else {
-                it?.let { albumsRepo ->
-                    if (albumsRepo.size == 0) _showEmptyResultLiveData.postValue(Event(true))
-                    else {
-                        _startAlbumsListActivityLiveData.postValue(Event(albumsRepo))
-                    }
+                if (albumsRepo.size == 0) _showEmptyResultLiveData.postValue(Event(true))
+                else {
+                    _setCurrentAlbumsSearchResultAndStartActivityLiveData.value = Event(albumsRepo)
                 }
             }
         }

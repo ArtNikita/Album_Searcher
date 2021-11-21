@@ -4,9 +4,7 @@ import ru.nikitaartamonov.albumsearcher.domain.AlbumEntity
 import ru.nikitaartamonov.albumsearcher.domain.AlbumsRepo
 import java.util.*
 
-class AlbumsRepoImpl(inputAlbumsSet: TreeSet<AlbumEntity> = TreeSet()) : AlbumsRepo {
-
-    override val albumsSet: TreeSet<AlbumEntity> = inputAlbumsSet
+class AlbumsRepoImpl(override val albumsSet: TreeSet<AlbumEntity> = TreeSet()) : AlbumsRepo {
 
     override val size: Int
         get() = albumsSet.size

@@ -2,15 +2,17 @@ package ru.nikitaartamonov.albumsearcher.ui.main
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.view.Window
-import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import ru.nikitaartamonov.albumsearcher.R
+import ru.nikitaartamonov.albumsearcher.data.getApp
+import ru.nikitaartamonov.albumsearcher.data.hideStatusbar
 import ru.nikitaartamonov.albumsearcher.databinding.ActivityMainBinding
+import ru.nikitaartamonov.albumsearcher.ui.pages.albums_list.AlbumsListActivity
 
 class MainActivity : AppCompatActivity() {
     private val viewModel: MainController.ViewModel by viewModels<MainViewModel>()
@@ -18,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        hideStatusBar()
+        hideStatusbar()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -49,9 +51,10 @@ class MainActivity : AppCompatActivity() {
                 showEmptyResultSnackbar()
             }
         }
-        viewModel.startAlbumsListActivityLiveData.observe(this) { event ->
-            event.getContentIfNotHandled()?.let { albumsRepo ->
-                //todo start activity
+        viewModel.setCurrentAlbumsSearchResultAndStartActivityLiveData.observe(this) {
+            it.getContentIfNotHandled()?.let { albumsRepo ->
+                getApp().currentAlbumsSearchResult = albumsRepo
+                startActivity(Intent(this, AlbumsListActivity::class.java))
             }
         }
     }
@@ -64,20 +67,13 @@ class MainActivity : AppCompatActivity() {
         showSnackbar(R.string.internet_connection_error_snackbar_text)
     }
 
-    private fun hideStatusBar() {
-        requestWindowFeature(Window.FEATURE_NO_TITLE)
-        this.window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
-    }
-
     private fun hideKeyboard() {
-        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager =
+            getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
     }
 
-    private fun Context.showSnackbar(stringId: Int){
+    private fun Context.showSnackbar(stringId: Int) {
         Snackbar.make(
             binding.historyRecyclerView,
             getString(stringId),

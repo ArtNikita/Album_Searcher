@@ -9,7 +9,7 @@ class MainController {
         val showDownloadErrorLiveData: LiveData<Event<Boolean>>
         val showEmptyResultLiveData: LiveData<Event<Boolean>>
         val hideKeyboardAndClearEditTextFocusLiveData: LiveData<Event<Boolean>>
-        val startAlbumsListActivityLiveData: LiveData<Event<AlbumsRepo>>
+        val setCurrentAlbumsSearchResultAndStartActivityLiveData: LiveData<Event<AlbumsRepo>>
 
         fun onSearchButtonPressed(textToSearch: String)
     }
