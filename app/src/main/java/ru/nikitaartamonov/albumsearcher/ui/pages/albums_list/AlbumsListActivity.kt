@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import ru.nikitaartamonov.albumsearcher.data.getApp
 import ru.nikitaartamonov.albumsearcher.data.hideStatusbar
 import ru.nikitaartamonov.albumsearcher.databinding.ActivityAlbumsListBinding
+import ru.nikitaartamonov.albumsearcher.domain.AlbumEntity
 import ru.nikitaartamonov.albumsearcher.ui.pages.recyclerview.AlbumsRecyclerViewAdapter
+import ru.nikitaartamonov.albumsearcher.ui.pages.recyclerview.OnAlbumItemClickListener
 
 class AlbumsListActivity : AppCompatActivity() {
     private val viewModel: AlbumsListContract.ViewModel by viewModels<AlbumsListViewModel>()
@@ -33,6 +35,11 @@ class AlbumsListActivity : AppCompatActivity() {
                     else -> HORIZONTAL_RECYCLER_VIEW_COLUMNS_COUNT
                 }
             )
+        adapter.listener = object : OnAlbumItemClickListener {
+            override fun onClick(albumEntity: AlbumEntity) {
+                viewModel.onAlbumItemClicked(albumEntity)
+            }
+        }
         binding.albumsListRecyclerView.adapter = adapter
         adapter.setData(getApp().currentAlbumsSearchResult)
     }

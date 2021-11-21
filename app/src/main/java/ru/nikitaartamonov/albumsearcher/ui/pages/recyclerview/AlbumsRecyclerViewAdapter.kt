@@ -6,6 +6,7 @@ import ru.nikitaartamonov.albumsearcher.domain.AlbumsRepo
 
 class AlbumsRecyclerViewAdapter : RecyclerView.Adapter<AlbumsViewHolder>() {
     private lateinit var albumsRepo: AlbumsRepo
+    lateinit var listener: OnAlbumItemClickListener
 
     fun setData(albumsRepo: AlbumsRepo){
         this.albumsRepo = albumsRepo
@@ -13,7 +14,7 @@ class AlbumsRecyclerViewAdapter : RecyclerView.Adapter<AlbumsViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumsViewHolder {
-        return AlbumsViewHolder(parent)
+        return AlbumsViewHolder(parent, listener)
     }
 
     override fun onBindViewHolder(holder: AlbumsViewHolder, position: Int) {

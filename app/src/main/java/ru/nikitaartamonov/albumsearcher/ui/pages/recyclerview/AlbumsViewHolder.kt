@@ -8,16 +8,23 @@ import ru.nikitaartamonov.albumsearcher.R
 import ru.nikitaartamonov.albumsearcher.databinding.RecyclerViewAlbumItemBinding
 import ru.nikitaartamonov.albumsearcher.domain.AlbumEntity
 
-class AlbumsViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
-    RecyclerViewAlbumItemBinding.inflate(
-        LayoutInflater.from(parent.context),
-        parent,
-        false
-    ).root
-) {
+class AlbumsViewHolder(parent: ViewGroup, listener: OnAlbumItemClickListener) :
+    RecyclerView.ViewHolder(
+        RecyclerViewAlbumItemBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        ).root
+    ) {
 
     private val binding = RecyclerViewAlbumItemBinding.bind(itemView)
     private lateinit var albumEntity: AlbumEntity
+
+    init {
+        itemView.setOnClickListener {
+            listener.onClick(albumEntity)
+        }
+    }
 
     fun bind(albumEntity: AlbumEntity) {
         this.albumEntity = albumEntity
