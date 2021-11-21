@@ -12,6 +12,7 @@ import ru.nikitaartamonov.albumsearcher.data.getApp
 import ru.nikitaartamonov.albumsearcher.data.hideStatusbar
 import ru.nikitaartamonov.albumsearcher.databinding.ActivityAlbumsListBinding
 import ru.nikitaartamonov.albumsearcher.domain.AlbumEntity
+import ru.nikitaartamonov.albumsearcher.ui.pages.album_description.FragmentAlbumFullDescription
 import ru.nikitaartamonov.albumsearcher.ui.pages.recyclerview.AlbumsRecyclerViewAdapter
 import ru.nikitaartamonov.albumsearcher.ui.pages.recyclerview.OnAlbumItemClickListener
 
@@ -54,6 +55,16 @@ class AlbumsListActivity : AppCompatActivity() {
                 showSnackbar(R.string.internet_connection_error_snackbar_text)
             }
         }
+        viewModel.showSpecificAlbumFullDescriptionLiveData.observe(this) {
+            it.getContentIfNotHandled()?.let { albumEntity ->
+                showSpecificAlbumFullDescription(albumEntity)
+            }
+        }
+    }
+
+    private fun showSpecificAlbumFullDescription(albumEntity: AlbumEntity) {
+        FragmentAlbumFullDescription.newInstance(albumEntity)
+            .show(supportFragmentManager, FragmentAlbumFullDescription.TAG)
     }
 
     fun Context.showSnackbar(stringId: Int) {
