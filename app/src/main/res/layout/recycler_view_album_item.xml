@@ -35,14 +35,12 @@
         <TextView
             android:id="@+id/album_item_album_name_text_view"
             style="@style/AlbumItemTextView.Name"
-            app:layout_constraintEnd_toEndOf="@id/album_image_view_container_card_view"
             app:layout_constraintStart_toStartOf="@id/album_image_view_container_card_view"
             app:layout_constraintTop_toBottomOf="@id/album_image_view_container_card_view" />
 
         <TextView
             android:id="@+id/album_item_artist_name_text_view"
             style="@style/AlbumItemTextView"
-            app:layout_constraintEnd_toEndOf="@id/album_item_album_name_text_view"
             app:layout_constraintStart_toStartOf="@id/album_item_album_name_text_view"
             app:layout_constraintTop_toBottomOf="@id/album_item_album_name_text_view" />
     </androidx.constraintlayout.widget.ConstraintLayout>
