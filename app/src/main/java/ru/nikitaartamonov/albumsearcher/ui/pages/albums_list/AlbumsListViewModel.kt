@@ -14,8 +14,15 @@ class AlbumsListViewModel : ViewModel(), AlbumsListContract.ViewModel {
         _showSpecificAlbumFullDescriptionLiveData
     private val _addAlbumToHistoryLiveData = MutableLiveData<Event<AlbumEntity>>()
     override val addAlbumToHistoryLiveData = _addAlbumToHistoryLiveData
+    private val _showProgressBarLiveData = MutableLiveData<Boolean>()
+    override val showProgressBarLiveData = _showProgressBarLiveData
+
+    private var albumItemAlreadyClicked = false
 
     override fun onAlbumItemClicked(albumEntity: AlbumEntity) {
+        if (albumItemAlreadyClicked) return
+        albumItemAlreadyClicked = true
+        _showProgressBarLiveData.postValue(true)
         ServerAlbumsLoaderImpl().loadSpecificAlbumAsync(albumEntity.collectionId) { listOfSongs ->
             if (listOfSongs == null) _showDownloadSpecificAlbumErrorLiveData.postValue(Event(true))
             else {
@@ -23,6 +30,8 @@ class AlbumsListViewModel : ViewModel(), AlbumsListContract.ViewModel {
                 _showSpecificAlbumFullDescriptionLiveData.postValue(Event(albumEntity))
                 _addAlbumToHistoryLiveData.postValue(Event(albumEntity))
             }
+            _showProgressBarLiveData.postValue(false)
+            albumItemAlreadyClicked = false
         }
     }
 }

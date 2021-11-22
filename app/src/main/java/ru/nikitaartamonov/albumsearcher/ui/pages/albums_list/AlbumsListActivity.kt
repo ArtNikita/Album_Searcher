@@ -3,6 +3,7 @@ package ru.nikitaartamonov.albumsearcher.ui.pages.albums_list
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -64,6 +65,10 @@ class AlbumsListActivity : AppCompatActivity() {
             it.getContentIfNotHandled()?.let { albumEntity ->
                 getApp().albumsHistoryRepo.addAlbum(albumEntity)
             }
+        }
+        viewModel.showProgressBarLiveData.observe(this) {
+            if (it) binding.progressBarFrameLayout.visibility = View.VISIBLE
+            else binding.progressBarFrameLayout.visibility = View.GONE
         }
     }
 

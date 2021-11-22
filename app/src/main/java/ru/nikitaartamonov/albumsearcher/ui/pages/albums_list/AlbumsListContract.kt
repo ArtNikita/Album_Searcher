@@ -9,6 +9,7 @@ class AlbumsListContract {
         val showDownloadSpecificAlbumErrorLiveData: LiveData<Event<Boolean>>
         val showSpecificAlbumFullDescriptionLiveData: LiveData<Event<AlbumEntity>>
         val addAlbumToHistoryLiveData: LiveData<Event<AlbumEntity>>
+        val showProgressBarLiveData: LiveData<Boolean>
 
         fun onAlbumItemClicked(albumEntity: AlbumEntity)
     }
