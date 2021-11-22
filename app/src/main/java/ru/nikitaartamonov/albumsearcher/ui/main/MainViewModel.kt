@@ -27,11 +27,17 @@ class MainViewModel : ViewModel(), MainContract.ViewModel {
         _showSpecificAlbumFullDescriptionLiveData
     private val _notifyAdapterLiveData = MutableLiveData<Event<Boolean>>()
     override val notifyAdapterLiveData = _notifyAdapterLiveData
+    private val _showProgressBarLiveData = MutableLiveData<Boolean>()
+    override val showProgressBarLiveData = _showProgressBarLiveData
 
     override fun onSearchButtonPressed(textToSearch: String) {
+        _showProgressBarLiveData.postValue(true)
         _hideKeyboardAndClearEditTextFocusLiveData.postValue(Event(true))
         val input = textToSearch.trim()
-        if (input.isEmpty()) return
+        if (input.isEmpty()) {
+            _showProgressBarLiveData.postValue(false)
+            return
+        }
         serverAlbumsLoader.loadAlbumsAsync(input) { albumsRepo ->
             if (albumsRepo == null) {
                 _showDownloadErrorLiveData.postValue(Event(true))
@@ -41,6 +47,7 @@ class MainViewModel : ViewModel(), MainContract.ViewModel {
                     _setCurrentAlbumsSearchResultAndStartActivityLiveData.value = Event(albumsRepo)
                 }
             }
+            _showProgressBarLiveData.postValue(false)
         }
     }
 

@@ -13,6 +13,7 @@ class MainContract {
         val setCurrentAlbumsSearchResultAndStartActivityLiveData: LiveData<Event<AlbumsRepo>>
         val showSpecificAlbumFullDescriptionLiveData: LiveData<Event<AlbumEntity>>
         val notifyAdapterLiveData: LiveData<Event<Boolean>>
+        val showProgressBarLiveData: LiveData<Boolean>
 
         fun onSearchButtonPressed(textToSearch: String)
         fun onAlbumItemClicked(albumEntity: AlbumEntity)

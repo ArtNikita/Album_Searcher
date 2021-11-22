@@ -21,9 +21,6 @@ import ru.nikitaartamonov.albumsearcher.ui.pages.album_description.FragmentAlbum
 import ru.nikitaartamonov.albumsearcher.ui.pages.albums_list.AlbumsListActivity
 import ru.nikitaartamonov.albumsearcher.ui.pages.recyclerview.albums.AlbumsRecyclerViewAdapter
 import ru.nikitaartamonov.albumsearcher.ui.pages.recyclerview.albums.OnAlbumItemClickListener
-import android.widget.Toast
-
-
 
 
 class MainActivity : AppCompatActivity() {
@@ -114,6 +111,10 @@ class MainActivity : AppCompatActivity() {
             it.getContentIfNotHandled()?.let {
                 adapter.notifyDataSetChanged()
             }
+        }
+        viewModel.showProgressBarLiveData.observe(this) {
+            if (it) binding.progressBarFrameLayout.visibility = View.VISIBLE
+            else binding.progressBarFrameLayout.visibility = View.GONE
         }
     }
 
