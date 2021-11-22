@@ -9,6 +9,9 @@ data class AlbumEntity(
     val artistName: String,
     val collectionName: String,
     val artworkUrl100: String,
+    val primaryGenreName: String,
+    val releaseDate: String,
+    val copyright: String,
     var listOfSongs: List<SongEntity> = emptyList()
 ) : Comparable<AlbumEntity>, Parcelable {
     override fun compareTo(other: AlbumEntity) =
