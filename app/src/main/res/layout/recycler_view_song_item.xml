@@ -14,7 +14,7 @@
 
         <TextView
             android:id="@+id/track_number_text_view"
-            android:layout_width="40dp"
+            android:layout_width="@dimen/song_item_small_element_width"
             android:layout_height="match_parent"
             android:gravity="center" />
 
@@ -35,7 +35,7 @@
 
         <TextView
             android:id="@+id/track_duration_text_view"
-            android:layout_width="40dp"
+            android:layout_width="@dimen/song_item_small_element_width"
             android:layout_height="match_parent"
             android:gravity="center"
             android:paddingStart="@dimen/little_margin_or_padding"
