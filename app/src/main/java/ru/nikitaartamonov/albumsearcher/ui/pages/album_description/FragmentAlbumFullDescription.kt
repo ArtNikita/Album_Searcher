@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ru.nikitaartamonov.albumsearcher.R
 import ru.nikitaartamonov.albumsearcher.databinding.FragmentAlbumFullDescriptionBinding
 import ru.nikitaartamonov.albumsearcher.domain.AlbumEntity
 import ru.nikitaartamonov.albumsearcher.domain.SongEntity
+import ru.nikitaartamonov.albumsearcher.ui.pages.recyclerview.songs.SongsRecyclerViewAdapter
 import java.util.concurrent.TimeUnit
 
 class FragmentAlbumFullDescription : BottomSheetDialogFragment() {
@@ -54,7 +56,11 @@ class FragmentAlbumFullDescription : BottomSheetDialogFragment() {
     }
 
     private fun setupSongsRecyclerView(albumEntity: AlbumEntity) {
-        //todo
+        binding.songsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        val adapter = SongsRecyclerViewAdapter()
+        adapter.listOfSongs = albumEntity.listOfSongs
+        adapter.mainArtistName = albumEntity.artistName
+        binding.songsRecyclerView.adapter = adapter
     }
 
     private fun setupFooter(albumEntity: AlbumEntity) {
