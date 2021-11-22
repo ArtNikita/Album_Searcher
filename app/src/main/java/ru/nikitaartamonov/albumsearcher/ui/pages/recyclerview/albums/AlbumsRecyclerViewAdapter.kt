@@ -1,4 +1,4 @@
-package ru.nikitaartamonov.albumsearcher.ui.pages.recyclerview
+package ru.nikitaartamonov.albumsearcher.ui.pages.recyclerview.albums
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView

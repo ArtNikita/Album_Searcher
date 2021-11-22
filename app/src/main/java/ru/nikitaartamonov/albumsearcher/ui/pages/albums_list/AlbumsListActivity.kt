@@ -13,8 +13,8 @@ import ru.nikitaartamonov.albumsearcher.data.hideStatusbar
 import ru.nikitaartamonov.albumsearcher.databinding.ActivityAlbumsListBinding
 import ru.nikitaartamonov.albumsearcher.domain.AlbumEntity
 import ru.nikitaartamonov.albumsearcher.ui.pages.album_description.FragmentAlbumFullDescription
-import ru.nikitaartamonov.albumsearcher.ui.pages.recyclerview.AlbumsRecyclerViewAdapter
-import ru.nikitaartamonov.albumsearcher.ui.pages.recyclerview.OnAlbumItemClickListener
+import ru.nikitaartamonov.albumsearcher.ui.pages.recyclerview.albums.AlbumsRecyclerViewAdapter
+import ru.nikitaartamonov.albumsearcher.ui.pages.recyclerview.albums.OnAlbumItemClickListener
 
 class AlbumsListActivity : AppCompatActivity() {
     private val viewModel: AlbumsListContract.ViewModel by viewModels<AlbumsListViewModel>()
