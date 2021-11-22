@@ -10,6 +10,7 @@ import ru.nikitaartamonov.albumsearcher.impl.AlbumsRepoImpl
 
 class App : Application() {
     var currentAlbumsSearchResult: AlbumsRepo = AlbumsRepoImpl()
+    val albumsHistoryRepo: AlbumsRepo = AlbumsRepoImpl()
 }
 
 fun AppCompatActivity.hideStatusbar() {

@@ -2,6 +2,7 @@ package ru.nikitaartamonov.albumsearcher.ui.main
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import ru.nikitaartamonov.albumsearcher.domain.AlbumEntity
 import ru.nikitaartamonov.albumsearcher.domain.AlbumsRepo
 import ru.nikitaartamonov.albumsearcher.domain.Event
 import ru.nikitaartamonov.albumsearcher.impl.ServerAlbumsLoaderImpl
@@ -21,6 +22,11 @@ class MainViewModel : ViewModel(), MainContract.ViewModel {
         MutableLiveData<Event<AlbumsRepo>>()
     override val setCurrentAlbumsSearchResultAndStartActivityLiveData =
         _setCurrentAlbumsSearchResultAndStartActivityLiveData
+    private val _showSpecificAlbumFullDescriptionLiveData = MutableLiveData<Event<AlbumEntity>>()
+    override val showSpecificAlbumFullDescriptionLiveData =
+        _showSpecificAlbumFullDescriptionLiveData
+    private val _notifyAdapterLiveData = MutableLiveData<Event<Boolean>>()
+    override val notifyAdapterLiveData = _notifyAdapterLiveData
 
     override fun onSearchButtonPressed(textToSearch: String) {
         _hideKeyboardAndClearEditTextFocusLiveData.postValue(Event(true))
@@ -36,5 +42,13 @@ class MainViewModel : ViewModel(), MainContract.ViewModel {
                 }
             }
         }
+    }
+
+    override fun onAlbumItemClicked(albumEntity: AlbumEntity) {
+        _showSpecificAlbumFullDescriptionLiveData.postValue(Event(albumEntity))
+    }
+
+    override fun onStartView() {
+        _notifyAdapterLiveData.postValue(Event(true))
     }
 }

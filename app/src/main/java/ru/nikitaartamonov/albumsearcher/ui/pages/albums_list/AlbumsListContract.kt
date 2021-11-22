@@ -8,6 +8,7 @@ class AlbumsListContract {
     interface ViewModel {
         val showDownloadSpecificAlbumErrorLiveData: LiveData<Event<Boolean>>
         val showSpecificAlbumFullDescriptionLiveData: LiveData<Event<AlbumEntity>>
+        val addAlbumToHistoryLiveData: LiveData<Event<AlbumEntity>>
 
         fun onAlbumItemClicked(albumEntity: AlbumEntity)
     }

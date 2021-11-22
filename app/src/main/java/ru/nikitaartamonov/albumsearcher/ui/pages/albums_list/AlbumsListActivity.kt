@@ -60,6 +60,11 @@ class AlbumsListActivity : AppCompatActivity() {
                 showSpecificAlbumFullDescription(albumEntity)
             }
         }
+        viewModel.addAlbumToHistoryLiveData.observe(this) {
+            it.getContentIfNotHandled()?.let { albumEntity ->
+                getApp().albumsHistoryRepo.addAlbum(albumEntity)
+            }
+        }
     }
 
     private fun showSpecificAlbumFullDescription(albumEntity: AlbumEntity) {

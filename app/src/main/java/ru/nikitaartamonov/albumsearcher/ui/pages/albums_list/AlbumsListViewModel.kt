@@ -12,6 +12,8 @@ class AlbumsListViewModel : ViewModel(), AlbumsListContract.ViewModel {
     private val _showSpecificAlbumFullDescriptionLiveData = MutableLiveData<Event<AlbumEntity>>()
     override val showSpecificAlbumFullDescriptionLiveData =
         _showSpecificAlbumFullDescriptionLiveData
+    private val _addAlbumToHistoryLiveData = MutableLiveData<Event<AlbumEntity>>()
+    override val addAlbumToHistoryLiveData = _addAlbumToHistoryLiveData
 
     override fun onAlbumItemClicked(albumEntity: AlbumEntity) {
         ServerAlbumsLoaderImpl().loadSpecificAlbumAsync(albumEntity.collectionId) { listOfSongs ->
@@ -19,6 +21,7 @@ class AlbumsListViewModel : ViewModel(), AlbumsListContract.ViewModel {
             else {
                 albumEntity.listOfSongs = listOfSongs
                 _showSpecificAlbumFullDescriptionLiveData.postValue(Event(albumEntity))
+                _addAlbumToHistoryLiveData.postValue(Event(albumEntity))
             }
         }
     }
