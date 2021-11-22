@@ -51,4 +51,8 @@ class MainViewModel : ViewModel(), MainContract.ViewModel {
     override fun onStartView() {
         _notifyAdapterLiveData.postValue(Event(true))
     }
+
+    override fun onEnterKeyPressed(textToSearch: String) {
+        onSearchButtonPressed(textToSearch)
+    }
 }

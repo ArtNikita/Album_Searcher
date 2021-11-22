@@ -6,4 +6,5 @@
     <string name="songs">Songs</string>
     <string name="minutes">min</string>
     <string name="seconds">sec</string>
+    <string name="album_search_edit_text_hint">Enter album name here</string>
 </resources>

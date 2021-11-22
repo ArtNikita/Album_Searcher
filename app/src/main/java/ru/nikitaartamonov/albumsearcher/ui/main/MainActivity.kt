@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.KeyEvent
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +21,10 @@ import ru.nikitaartamonov.albumsearcher.ui.pages.album_description.FragmentAlbum
 import ru.nikitaartamonov.albumsearcher.ui.pages.albums_list.AlbumsListActivity
 import ru.nikitaartamonov.albumsearcher.ui.pages.recyclerview.albums.AlbumsRecyclerViewAdapter
 import ru.nikitaartamonov.albumsearcher.ui.pages.recyclerview.albums.OnAlbumItemClickListener
+import android.widget.Toast
+
+
+
 
 class MainActivity : AppCompatActivity() {
     private val viewModel: MainContract.ViewModel by viewModels<MainViewModel>()
@@ -63,6 +69,17 @@ class MainActivity : AppCompatActivity() {
         binding.searchButton.setOnClickListener {
             viewModel.onSearchButtonPressed(binding.searchEditText.text.toString())
         }
+        binding.searchEditText.setOnKeyListener(object : View.OnKeyListener {
+            override fun onKey(v: View?, keyCode: Int, event: KeyEvent): Boolean {
+                if (event.action == KeyEvent.ACTION_DOWN &&
+                    keyCode == KeyEvent.KEYCODE_ENTER
+                ) {
+                    viewModel.onEnterKeyPressed(binding.searchEditText.text.toString())
+                    return true
+                }
+                return false
+            }
+        })
     }
 
     private fun initViewModel() {

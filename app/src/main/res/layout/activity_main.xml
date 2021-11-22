@@ -17,7 +17,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:imeOptions="flagNoFullscreen"
+            android:hint="@string/album_search_edit_text_hint"
+            android:imeOptions="flagNoFullscreen|actionSearch"
             android:singleLine="true" />
 
         <androidx.appcompat.widget.AppCompatImageButton

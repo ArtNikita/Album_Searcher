@@ -17,5 +17,6 @@ class MainContract {
         fun onSearchButtonPressed(textToSearch: String)
         fun onAlbumItemClicked(albumEntity: AlbumEntity)
         fun onStartView()
+        fun onEnterKeyPressed(textToSearch: String)
     }
 }
