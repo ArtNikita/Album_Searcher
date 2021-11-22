@@ -4,5 +4,6 @@
     <string name="empty_result_snackbar_text">No albums with this name found.</string>
     <string name="album_image_content_description">Album image</string>
     <string name="songs">Songs</string>
-    <string name="minutes">minutes</string>
+    <string name="minutes">min</string>
+    <string name="seconds">sec</string>
 </resources>

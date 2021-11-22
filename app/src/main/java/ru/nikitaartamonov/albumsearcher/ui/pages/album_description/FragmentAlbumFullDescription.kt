@@ -59,19 +59,25 @@ class FragmentAlbumFullDescription : BottomSheetDialogFragment() {
 
     private fun setupFooter(albumEntity: AlbumEntity) {
         val date = albumEntity.releaseDate.substring(0, 10)
-        val summaryTimeInMinutes = calculateTimeInMinutes(albumEntity.listOfSongs)
+        val summaryTime = calculateTime(albumEntity.listOfSongs)
         val songs =
             "${requireContext().getString(R.string.songs)}: ${albumEntity.listOfSongs.size - 1}"
         val resultText =
-            "$date.\n$songs, $summaryTimeInMinutes ${requireContext().getString(R.string.minutes)}.\n${albumEntity.copyright}"
+            "$date.\n$songs, ${summaryTime[0]}${
+                requireContext().getString(R.string.minutes)
+            } ${summaryTime[1]}${
+                requireContext().getString(R.string.seconds)
+            }.\n${albumEntity.copyright}"
         binding.otherAlbumInfoTextView.text = resultText
     }
 
-    private fun calculateTimeInMinutes(listOfSongs: List<SongEntity>): Int {
+    private fun calculateTime(listOfSongs: List<SongEntity>): Array<Int> {
         val sumTimeInMillis = listOfSongs.sumOf {
             it.trackTimeMillis
         }
-        return TimeUnit.MILLISECONDS.toMinutes(sumTimeInMillis).toInt()
+        val min: Int = (sumTimeInMillis / 1000 / 60).toInt()
+        val sec: Int = (sumTimeInMillis / 1000 % 60).toInt()
+        return arrayOf(min, sec)
     }
 
     override fun onDestroyView() {
