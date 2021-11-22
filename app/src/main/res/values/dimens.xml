@@ -6,4 +6,5 @@
     <dimen name="little_margin_or_padding">4dp</dimen>
     <dimen name="album_full_description_image_view_size">200dp</dimen>
     <dimen name="song_item_small_element_width">40dp</dimen>
+    <dimen name="bottom_sheet_dialog_start_height">232dp</dimen>
 </resources>
